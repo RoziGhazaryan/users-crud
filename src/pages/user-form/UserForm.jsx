@@ -4,18 +4,10 @@ import useUserForm from "./useUserForm";
 
 const UserForm = () => {
   const {
-    name,
-    surname,
-    email,
-    address,
-    phone,
-    onChangeName,
-    onChangeSurname,
-    onChangeEmail,
-    onChangeAddress,
-    onChangePhone,
-    onFinishFailed,
-    onFinish
+    onFinish,
+    onChange,
+    values,
+    isValid,
   } = useUserForm();
 
   return (
@@ -26,43 +18,50 @@ const UserForm = () => {
         wrapperCol={{ span: 16 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
           label="name"
           name="name"
-          rules={[{ required: true, message: 'Please input the name!' }]}
         >
-          <Input value={name} onChange={onChangeName} />
+          <Input value={values.name} onChange={({ target }) => {
+            onChange('name', target.value)
+          }} />
         </Form.Item>
         <Form.Item
           label="surname"
           name="surname"
-          rules={[{ required: true, message: 'Please input the surname!' }]}
         >
-          <Input value={surname} onChange={onChangeSurname} />
+          <Input value={values.surname} onChange={({ target }) => {
+            onChange('surname', target.value)
+          }} />
         </Form.Item>
         <Form.Item
           label="email"
           name="email"
         >
-          <Input value={email} onChange={onChangeEmail} />
+          <Input value={values.email} onChange={({ target }) => {
+            onChange('email', target.value)
+          }} />
         </Form.Item>
         <Form.Item
           label="address"
           name="address"
         >
-          <Input value={address} onChange={onChangeAddress} />
+          <Input value={values.address} onChange={({ target }) => {
+            onChange('address', target.value)
+          }} />
         </Form.Item>
         <Form.Item
           label="phone"
           name="phone"
         >
-          <Input value={phone} onChange={onChangePhone} />
+          <Input value={values.phone} onChange={({ target }) => {
+            onChange('phone', target.value)
+          }} />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button disabled={!isValid} type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>

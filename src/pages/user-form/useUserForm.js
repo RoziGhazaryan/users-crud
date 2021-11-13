@@ -1,43 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router";
+import { useFormik } from 'formik';
+import { initialValues, validationSchema } from "./formikValues";
 
 const useUserForm = () => {
-  // useState
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
   const users = localStorage.getItem('users');
   const usersObj = JSON.parse(users);
 
+  // useFormik
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    validateOnMount: true,
+  });
+
+  const { values, isValid } = formik;
+
+  // functions
+  const setFormData = useCallback(
+    (field, data) => {
+      formik.setFieldValue(field, data);
+      setTimeout(() => {
+        formik.setFieldTouched(field, true);
+      });
+    },
+    [formik]
+  );
+
+  const onChange = useCallback(
+    (name, value) => {
+      console.log(name, 'name', value, 'value');
+      setFormData(name, value);
+    },
+    [setFormData]
+  );
+
   //useParams
   const { id } = useParams();
-
-  //functions
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
-  const onChangeName = (e) => {
-    setName(e.target.value)
-  };
-
-  const onChangeSurname = (e) => {
-    setSurname(e.target.value)
-  };
-
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const onChangeAddress = (e) => {
-    setAddress(e.target.value);
-  };
-
-  const onChangePhone = (e) => {
-    setPhone(e.target.value)
-  };
 
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -55,25 +54,18 @@ const useUserForm = () => {
     if (!usersObj) {
       localStorage.setItem('users', JSON.stringify([]));
       localStorage.setItem('users_id', JSON.stringify(1));
-    } else if (id) {
-      const users = localStorage.getItem('users');
-      const user = JSON.parse(users).find((user) => user.id = id);
     }
+    // else if (id) {
+    //   const users = localStorage.getItem('users');
+    //   const user = JSON.parse(users).find((user) => user.id = id);
+    // }
   }, [])
 
   return {
-    name,
-    surname,
-    email,
-    address,
-    phone,
-    onChangeName,
-    onChangeSurname,
-    onChangeEmail,
-    onChangeAddress,
-    onChangePhone,
-    onFinishFailed,
     onFinish,
+    onChange,
+    values,
+    isValid,
   }
 }
 
