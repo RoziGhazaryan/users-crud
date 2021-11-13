@@ -8,6 +8,7 @@ const UserForm = () => {
     onChange,
     values,
     isValid,
+    initialValues,
   } = useUserForm();
 
   return (
@@ -16,7 +17,7 @@ const UserForm = () => {
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        initialValues={{ remember: true }}
+        initialValues={initialValues}
         onFinish={onFinish}
         autoComplete="off"
       >

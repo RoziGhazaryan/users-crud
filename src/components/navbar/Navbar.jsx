@@ -6,7 +6,7 @@ import {
   DesktopOutlined,
 } from '@ant-design/icons';
 import './navbar.scss';
-import { paths, proutes } from "../../routes";
+import { paths, routes } from "../../routes";
 import Users from "../../pages/users/Users";
 import UserForm from "../../pages/user-form/UserForm";
 
@@ -27,7 +27,7 @@ const Navbar = () => {
       </Menu>
       <div className="page-container">
         <Switch>
-          {proutes.map(({ exact, path, Component }) => (
+          {routes.map(({ exact, path, Component }) => (
             <Route exact={exact} key={path} path={path}>
               <Component />
             </Route>

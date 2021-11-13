@@ -1,11 +1,26 @@
-import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router";
+import { useEffect, useCallback } from "react";
+import { useHistory, useParams } from "react-router";
 import { useFormik } from 'formik';
-import { initialValues, validationSchema } from "./formikValues";
+import { validationSchema } from "./formikValues";
 
 const useUserForm = () => {
+  //useParams
+  const { id } = useParams();
+
+  //useHistory
+  const history = useHistory();
+
   const users = localStorage.getItem('users');
   const usersObj = JSON.parse(users);
+  const user = usersObj?.find((user) => user.userId === id);
+
+  const initialValues = {
+    name: user?.name,
+    surname: user?.surname,
+    email: user?.email,
+    address: user?.address,
+    phone: user?.phone,
+  };
 
   // useFormik
   const formik = useFormik({
@@ -29,36 +44,40 @@ const useUserForm = () => {
 
   const onChange = useCallback(
     (name, value) => {
-      console.log(name, 'name', value, 'value');
       setFormData(name, value);
     },
     [setFormData]
   );
 
-  //useParams
-  const { id } = useParams();
-
   const onFinish = (values) => {
-    console.log('Success:', values);
+    if (id) {
+      onEditUser(values, id);
+    } else {
+      onAddUser(values);
+    }
+    history.push('/users');
+  };
+
+  const onEditUser = (values) => {
+    const index = usersObj.findIndex(user => user.userId === id);
+    values.userId = id;
+    usersObj[index] = values;
+    localStorage.setItem('users', JSON.stringify(usersObj));
+  }
+
+  const onAddUser = (values) => {
     let id = localStorage.getItem('users_id');
-    values.id = id;
+    values.userId = String(id);
     localStorage.setItem('users_id', JSON.stringify(++id));
-    const usersArr = [users];
-    usersArr.push(values);
-    console.log("users object", usersObj);
     usersObj.push(values);
     localStorage.setItem('users', JSON.stringify(usersObj));
-  };
+  }
 
   useEffect(() => {
     if (!usersObj) {
       localStorage.setItem('users', JSON.stringify([]));
       localStorage.setItem('users_id', JSON.stringify(1));
     }
-    // else if (id) {
-    //   const users = localStorage.getItem('users');
-    //   const user = JSON.parse(users).find((user) => user.id = id);
-    // }
   }, [])
 
   return {
@@ -66,6 +85,8 @@ const useUserForm = () => {
     onChange,
     values,
     isValid,
+    initialValues,
+    id,
   }
 }
 

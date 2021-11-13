@@ -9,7 +9,7 @@ export const paths = {
   editUser: '/users/:id',
 }
 
-export const proutes = [
+export const routes = [
   {
     path: paths.users,
     Component: Users,

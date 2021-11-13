@@ -11,7 +11,7 @@ const useUsers = () => {
     const deleteUser = (id) => {
         let allUsers = localStorage.getItem("users");
         allUsers = JSON.parse(allUsers).filter((user) => {
-            return user.id !== id;
+            return user.userId !== id;
         });
         localStorage.setItem("users", JSON.stringify(allUsers));
         window.location.reload();

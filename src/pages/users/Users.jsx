@@ -18,8 +18,8 @@ const Users = () => {
                 <h5>{el?.gender}</h5>
                 <p>{el?.info}</p>
               </div>
-              <Button onClick={() => deleteUser(el?.id)}>delete user</Button>
-              <Button onClick={() => editUser(el?.id)}>edit user</Button>
+              <Button onClick={() => deleteUser(el?.userId)}>delete user</Button>
+              <Button onClick={() => editUser(el?.userId)}>edit user</Button>
             </div>
           ))}
         </div>
