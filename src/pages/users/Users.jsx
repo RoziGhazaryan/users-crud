@@ -4,8 +4,7 @@ import useUsers from './useUsers';
 import './users.scss';
 
 const Users = () => {
-  const { data, deleteUsers, deleteUser } = useUsers();
-
+  const { data, deleteUsers, deleteUser, editUser } = useUsers();
   return (
     <div className="users">
       {data?.length ? <Button onClick={deleteUsers}>delete all users</Button> : <h1>There isn't any user</h1>}
@@ -20,6 +19,7 @@ const Users = () => {
                 <p>{el?.info}</p>
               </div>
               <Button onClick={() => deleteUser(el?.id)}>delete user</Button>
+              <Button onClick={() => editUser(el?.id)}>edit user</Button>
             </div>
           ))}
         </div>

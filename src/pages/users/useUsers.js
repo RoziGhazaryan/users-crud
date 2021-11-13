@@ -1,4 +1,7 @@
+import { useHistory } from 'react-router';
+
 const useUsers = () => {
+    const history = useHistory();
 
     const deleteUsers = () => {
         localStorage.removeItem("users");
@@ -14,10 +17,14 @@ const useUsers = () => {
         window.location.reload();
     }
 
+    const editUser = (id) => {
+        history.push(`/users/${id}`);
+    }
+
     const users = localStorage.getItem('users');
     const data = JSON.parse(users);
 
-    return { data, deleteUsers, deleteUser };
+    return { data, deleteUsers, deleteUser, editUser };
 }
 
 export default useUsers;
