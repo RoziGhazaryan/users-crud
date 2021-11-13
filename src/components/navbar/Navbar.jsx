@@ -14,7 +14,6 @@ const Navbar = () => {
   return (
     <>
       <Menu
-        defaultSelectedKeys={['1']}
         mode="inline"
         theme="dark"
         className="navbar-menu"

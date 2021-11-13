@@ -6,14 +6,14 @@ const UserForm = () => {
   const {
     name,
     surname,
-    age,
-    gender,
-    info,
+    email,
+    address,
+    phone,
     onChangeName,
     onChangeSurname,
-    onChangeAge,
-    onChangeGender,
-    onChangeInfo,
+    onChangeEmail,
+    onChangeAddress,
+    onChangePhone,
     onFinishFailed,
     onFinish
   } = useUserForm();
@@ -44,22 +44,22 @@ const UserForm = () => {
           <Input value={surname} onChange={onChangeSurname} />
         </Form.Item>
         <Form.Item
-          label="age"
-          name="age"
+          label="email"
+          name="email"
         >
-          <Input value={age} onChange={onChangeAge} />
+          <Input value={email} onChange={onChangeEmail} />
         </Form.Item>
         <Form.Item
-          label="gender"
-          name="gender"
+          label="address"
+          name="address"
         >
-          <Input value={gender} onChange={onChangeGender} />
+          <Input value={address} onChange={onChangeAddress} />
         </Form.Item>
         <Form.Item
-          label="info"
-          name="info"
+          label="phone"
+          name="phone"
         >
-          <Input value={info} onChange={onChangeInfo} />
+          <Input value={phone} onChange={onChangePhone} />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">

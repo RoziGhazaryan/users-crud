@@ -5,15 +5,14 @@ const useUserForm = () => {
   // useState
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [info, setInfo] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
   const users = localStorage.getItem('users');
   const usersObj = JSON.parse(users);
 
   //useParams
   const { id } = useParams();
-  console.log(id);
 
   //functions
   const onFinishFailed = (errorInfo) => {
@@ -28,16 +27,16 @@ const useUserForm = () => {
     setSurname(e.target.value)
   };
 
-  const onChangeAge = (e) => {
-    setAge(e.target.value);
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value);
   };
 
-  const onChangeGender = (e) => {
-    setGender(e.target.value);
+  const onChangeAddress = (e) => {
+    setAddress(e.target.value);
   };
 
-  const onChangeInfo = (e) => {
-    setInfo(e.target.value)
+  const onChangePhone = (e) => {
+    setPhone(e.target.value)
   };
 
   const onFinish = (values) => {
@@ -56,20 +55,23 @@ const useUserForm = () => {
     if (!usersObj) {
       localStorage.setItem('users', JSON.stringify([]));
       localStorage.setItem('users_id', JSON.stringify(1));
+    } else if (id) {
+      const users = localStorage.getItem('users');
+      const user = JSON.parse(users).find((user) => user.id = id);
     }
   }, [])
 
   return {
     name,
     surname,
-    age,
-    gender,
-    info,
+    email,
+    address,
+    phone,
     onChangeName,
     onChangeSurname,
-    onChangeAge,
-    onChangeGender,
-    onChangeInfo,
+    onChangeEmail,
+    onChangeAddress,
+    onChangePhone,
     onFinishFailed,
     onFinish,
   }
