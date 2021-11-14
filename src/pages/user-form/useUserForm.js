@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useHistory, useParams } from "react-router";
 import { useFormik } from 'formik';
 import { validationSchema } from "./formikValues";
@@ -11,8 +11,8 @@ const useUserForm = () => {
   const history = useHistory();
 
   const users = localStorage.getItem('users');
-  const usersObj = JSON.parse(users);
-  const user = usersObj?.find((user) => user.userId === id);
+  const usersData = JSON.parse(users);
+  const user = usersData?.find((user) => user.userId === id);
 
   const initialValues = {
     name: user?.name,
@@ -59,22 +59,22 @@ const useUserForm = () => {
   };
 
   const onEditUser = (values) => {
-    const index = usersObj.findIndex(user => user.userId === id);
+    const index = usersData.findIndex(user => user.userId === id);
     values.userId = id;
-    usersObj[index] = values;
-    localStorage.setItem('users', JSON.stringify(usersObj));
+    usersData[index] = values;
+    localStorage.setItem('users', JSON.stringify(usersData));
   }
 
   const onAddUser = (values) => {
     let id = localStorage.getItem('users_id');
     values.userId = String(id);
     localStorage.setItem('users_id', JSON.stringify(++id));
-    usersObj.push(values);
-    localStorage.setItem('users', JSON.stringify(usersObj));
+    usersData.push(values);
+    localStorage.setItem('users', JSON.stringify(usersData));
   }
 
   useEffect(() => {
-    if (!usersObj) {
+    if (!usersData) {
       localStorage.setItem('users', JSON.stringify([]));
       localStorage.setItem('users_id', JSON.stringify(1));
     }
