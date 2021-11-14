@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useHistory, useParams } from "react-router";
 import { useFormik } from 'formik';
 import { validationSchema } from "./formikValues";
+import { message } from "antd";
 
 const useUserForm = () => {
   //useParams
@@ -53,8 +54,10 @@ const useUserForm = () => {
   const onFinish = (values) => {
     if (id) {
       onEditUser(values, id);
+      message.success('User info successfully edited');
     } else {
       onAddUser(values);
+      message.success('User successfully added');
     }
     history.push('/users');
   };

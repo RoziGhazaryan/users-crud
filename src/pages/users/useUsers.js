@@ -44,7 +44,6 @@ const useUsers = () => {
       return user.userId !== id;
     });
     localStorage.setItem("users", JSON.stringify(allUsers));
-    window.location.reload();
   }
 
   const FilterBySurnameInput = (
