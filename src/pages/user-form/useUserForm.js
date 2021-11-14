@@ -83,7 +83,7 @@ const useUserForm = () => {
       localStorage.setItem('users', JSON.stringify([]));
       localStorage.setItem('users_id', JSON.stringify(1));
     }
-  }, [])
+  }, [usersData])
 
   return {
     onFinish,

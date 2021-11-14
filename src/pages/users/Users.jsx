@@ -20,7 +20,7 @@ const Users = () => {
       <div className="container">
         <PageHeader title="Users List" />
         <div className="users-list page-cnt">
-          <Table rowKey="id" columns={columns} dataSource={dataSource} pagination={{ pageSize: 5 }} />
+          <Table rowKey="userId" columns={columns} dataSource={dataSource} pagination={{ pageSize: 5 }} />
           {btnDeleteAll()}
         </div>
       </div>
