@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import 'antd/dist/antd.css';
-import './assets/global.scss'
+import './assets/style/global.scss'
 import Sidebar from './components/sidebar/Sidebar';
 import { BrowserRouter as Router } from "react-router-dom";
-import './components/sidebar/sidebar.scss';
+import './components/sidebar/style.scss';
 
 function App() {
   return (

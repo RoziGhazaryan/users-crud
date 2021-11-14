@@ -1,0 +1,8 @@
+@import '../../assets/style/mixins';
+
+.ant-menu {
+    @include wh(180px, auto);
+    min-width: 180px;
+    min-height: 100vh;
+    padding-top: 12px;
+}

@@ -1,0 +1,29 @@
+@media (max-width: 1326.98px) {
+  .users-list {
+    width: 810px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .users-list {
+    width: 590px;
+  }
+}
+
+@media (max-width: 797.98px) {
+  .users-list {
+    width: 448px;
+
+    .ant-table-cell {
+      .ant-input {
+        width: 84px;
+      }
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .users-list {
+    width: 250px;
+  }
+}

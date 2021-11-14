@@ -1,0 +1,15 @@
+@import 'flexbox';
+
+.app {
+    .page {
+        width: 100%;
+        height: 100vh;
+    }
+    .page-cnt {
+        padding: 0 24px 24px 24px;
+    }
+}
+
+.ant-menu-dark .ant-menu-item-active {
+    background-color: red;
+}

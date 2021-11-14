@@ -1,0 +1,10 @@
+// WIDTH_HEIGHT
+@mixin wh($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin maxWidth($maxWidth) {
+  max-width: $maxWidth;
+  width: 100%;
+}

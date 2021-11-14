@@ -1,0 +1,19 @@
+@import '../../assets/style/mixins';
+
+.form-cnt {
+  height: calc(100vh - 72px);
+
+  .user-form {
+    border-radius: 8px;
+    box-shadow: 0 0 46px -16px rgba(0, 21, 41, 1);
+    @include maxWidth(480px);
+
+    .ant-form {
+      padding: 24px;
+
+      .ant-btn {
+        border-radius: 50px;
+      }
+    }
+  }
+}

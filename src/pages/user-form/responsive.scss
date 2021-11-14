@@ -1,0 +1,17 @@
+@import '../../assets/style/mixins';
+
+@media (max-width: 797.98px) {
+  .user-form {
+    @include maxWidth(100%);
+    box-shadow: unset;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .ant-row:last-child .ant-col {
+    margin: 0;
+    .ant-btn {
+      width: 100%;
+    }
+  }
+}

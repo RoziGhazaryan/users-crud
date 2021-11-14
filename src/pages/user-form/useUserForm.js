@@ -14,6 +14,7 @@ const useUserForm = () => {
   const usersData = JSON.parse(users);
   const user = usersData?.find((user) => user.userId === id);
 
+  // initialValues
   const initialValues = {
     name: user?.name,
     surname: user?.surname,
@@ -42,7 +43,7 @@ const useUserForm = () => {
     [formik]
   );
 
-  const onChange = useCallback(
+  const onChangeValue = useCallback(
     (name, value) => {
       setFormData(name, value);
     },
@@ -73,6 +74,7 @@ const useUserForm = () => {
     localStorage.setItem('users', JSON.stringify(usersData));
   }
 
+  // useEffect
   useEffect(() => {
     if (!usersData) {
       localStorage.setItem('users', JSON.stringify([]));
@@ -82,11 +84,12 @@ const useUserForm = () => {
 
   return {
     onFinish,
-    onChange,
+    onChangeValue,
     values,
     isValid,
     initialValues,
     id,
+    history,
   }
 }
 

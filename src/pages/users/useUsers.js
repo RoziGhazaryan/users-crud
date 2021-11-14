@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import { Link } from "react-router-dom";
 import { Input } from "antd";
+import Edit from '../../assets/svg/edit.svg';
+import Delete from '../../assets/svg/delete.svg';
 
 const useUsers = () => {
-  // useHistory
-  const history = useHistory();
-
   // localStorage
   const users = localStorage.getItem('users');
   const data = JSON.parse(users);
@@ -24,25 +23,39 @@ const useUsers = () => {
       placeholder="Search Name"
       value={name}
       onChange={e => {
-        const currValue = e.target.value;
-        setName(currValue);
-        const filteredData = data.filter(entry =>
-          entry.name?.includes(currValue)
+        const value = e.target.value;
+        setName(value);
+        const filteredData = data?.filter(entry =>
+          entry.name?.includes(value)
         );
         setDataSource(filteredData);
       }}
     />
   );
 
+  const deleteUsers = () => {
+    localStorage.removeItem("users");
+    window.location.reload();
+  }
+
+  const deleteUser = (id) => {
+    let allUsers = localStorage.getItem("users");
+    allUsers = JSON.parse(allUsers).filter((user) => {
+      return user.userId !== id;
+    });
+    localStorage.setItem("users", JSON.stringify(allUsers));
+    window.location.reload();
+  }
+
   const FilterBySurnameInput = (
     <Input
       placeholder="Search Surname"
       value={surname}
       onChange={e => {
-        const currValue = e.target.value;
-        setSurname(currValue);
-        const filteredData = data.filter(entry =>
-          entry.surname?.includes(currValue)
+        const value = e.target.value;
+        setSurname(value);
+        const filteredData = data?.filter(entry =>
+          entry.surname?.includes(value)
         );
         setDataSource(filteredData);
       }}
@@ -56,7 +69,7 @@ const useUsers = () => {
       onChange={e => {
         const value = e.target.value;
         setEmail(value);
-        const filteredData = data.filter(entry =>
+        const filteredData = data?.filter(entry =>
           entry.email?.includes(value)
         );
         setDataSource(filteredData);
@@ -71,7 +84,7 @@ const useUsers = () => {
       onChange={e => {
         const value = e.target.value;
         setAddress(value);
-        const filteredData = data.filter(entry =>
+        const filteredData = data?.filter(entry =>
           entry.address?.includes(value)
         );
         setDataSource(filteredData);
@@ -86,7 +99,7 @@ const useUsers = () => {
       onChange={e => {
         const value = e.target.value;
         setPhone(value);
-        const filteredData = data.filter(entry =>
+        const filteredData = data?.filter(entry =>
           entry.phone?.includes(value)
         );
         setDataSource(filteredData);
@@ -94,6 +107,7 @@ const useUsers = () => {
     />
   );
 
+  // table columns
   const columns = [
     {
       title: FilterByNameInput,
@@ -126,9 +140,9 @@ const useUsers = () => {
       key: '6',
       render: (id) => {
         return (
-          <button className="edit-btn" onClick={() => editUser(id)}>
-            edit
-          </button>
+          <Link to={`users/${id}`} className="edit-btn">
+            <img src={Edit} alt="edit" />
+          </Link>
         );
       },
     },
@@ -138,31 +152,13 @@ const useUsers = () => {
       key: '7',
       render: (id) => {
         return (
-          <button className="edit-btn" onClick={() => deleteUser(id)}>
-            delete
-          </button>
+          <div className="delete-btn" onClick={() => deleteUser(id)}>
+            <img src={Delete} alt="delete" />
+          </div>
         );
       },
     },
   ];
-
-  const deleteUsers = () => {
-    localStorage.removeItem("users");
-    window.location.reload();
-  }
-
-  const deleteUser = (id) => {
-    let allUsers = localStorage.getItem("users");
-    allUsers = JSON.parse(allUsers).filter((user) => {
-      return user.userId !== id;
-    });
-    localStorage.setItem("users", JSON.stringify(allUsers));
-    window.location.reload();
-  }
-
-  const editUser = (id) => {
-    history.push(`/users/${id}`);
-  }
 
   return { data, deleteUsers, columns, dataSource };
 }
